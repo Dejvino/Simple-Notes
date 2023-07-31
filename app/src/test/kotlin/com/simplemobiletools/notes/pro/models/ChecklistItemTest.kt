@@ -2,6 +2,7 @@ package com.simplemobiletools.notes.pro.models
 
 import com.simplemobiletools.commons.helpers.SORT_BY_DATE_CREATED
 import com.simplemobiletools.commons.helpers.SORT_BY_TITLE
+import com.simplemobiletools.commons.helpers.SORT_DESCENDING
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
@@ -46,6 +47,7 @@ class ChecklistItemTest(val sorting: Int, val itemOne: ChecklistItem, val expect
                 arrayOf(SORT_BY_TITLE, itemTitled("A"), BEFORE, itemTitled("B")),
                 arrayOf(SORT_BY_TITLE, itemTitled("D"), AFTER, itemTitled("C")),
                 arrayOf(SORT_BY_TITLE, itemTitled("x"), AFTER, itemTitled("W")),
+                arrayOf(SORT_BY_TITLE or SORT_DESCENDING, itemTitled("x"), BEFORE, itemTitled("W")),
                 arrayOf(SORT_BY_TITLE, itemTitled("Buy apples"), BEFORE, itemTitled("Buy bananas")),
                 arrayOf(SORT_BY_TITLE, itemTitled("15"), BEFORE, itemTitled("19")),
                 arrayOf(SORT_BY_TITLE, itemTitled("200"), AFTER, itemTitled("95")),
