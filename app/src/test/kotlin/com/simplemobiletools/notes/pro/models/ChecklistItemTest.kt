@@ -17,48 +17,54 @@ import org.junit.runners.Parameterized.Parameters
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 @RunWith(Parameterized::class)
-class ChecklistItemTest(val sorting: Int, val itemOne: ChecklistItem, val expectedCompareTo: Int, val itemTwo: ChecklistItem) {
+class ChecklistItemTest(val sorting: String, val itemOne: ChecklistItem, val expectedCompareTo: Int, val itemTwo: ChecklistItem) {
 
     @Before
     fun setup() {
-        ChecklistItem.sorting = sorting
+        ChecklistItem.sorting = sortBy[sorting]!!
     }
 
     @Test
     fun testCompareTo() {
-        assertEquals("A = $itemOne\nB = $itemTwo\nA.compareTo(B):\n",
+        assertEquals("A = $itemOne\nB = $itemTwo\nA.compareTo(B) (sort by $sorting):\n",
             expectedCompareTo, coerce(itemOne.compareTo(itemTwo)))
     }
+
+    private val sortBy = mapOf<String, Int>(
+        "title" to SORT_BY_TITLE,
+        "title descending" to (SORT_BY_TITLE or SORT_DESCENDING),
+        "date" to SORT_BY_DATE_CREATED
+    )
 
     private fun coerce(compareToResult: Int): Int {
         return compareToResult.coerceIn(-1, 1)
     }
 
     companion object {
-        const val BEFORE = -1
-        const val AFTER = 1
-        const val EQUALS = 0
+        private const val BEFORE = -1
+        private const val AFTER = 1
+        private const val EQUALS = 0
 
         @JvmStatic
         @Parameters()
         fun data(): List<Array<Any>> {
             return listOf(
-                arrayOf(SORT_BY_TITLE, itemTitled("A"), EQUALS, itemTitled("A")),
-                arrayOf(SORT_BY_TITLE, itemTitled("A"), BEFORE, itemTitled("B")),
-                arrayOf(SORT_BY_TITLE, itemTitled("D"), AFTER, itemTitled("C")),
-                arrayOf(SORT_BY_TITLE, itemTitled("x"), AFTER, itemTitled("W")),
-                arrayOf(SORT_BY_TITLE or SORT_DESCENDING, itemTitled("x"), BEFORE, itemTitled("W")),
-                arrayOf(SORT_BY_TITLE, itemTitled("Buy apples"), BEFORE, itemTitled("Buy bananas")),
-                arrayOf(SORT_BY_TITLE, itemTitled("15"), BEFORE, itemTitled("19")),
-                arrayOf(SORT_BY_TITLE, itemTitled("200"), AFTER, itemTitled("95")),
-                arrayOf(SORT_BY_TITLE, itemTitled("Song 5"), BEFORE, itemTitled("Song 12")),
-                arrayOf(SORT_BY_TITLE, itemTitled("IMG_20"), BEFORE, itemTitled("IMG_52")),
-                arrayOf(SORT_BY_TITLE, itemTitled("IMG_115"), AFTER, itemTitled("IMG_85")),
-                //arrayOf(SORT_BY_TITLE, itemTitled("Échalote (French: shallot)"), BEFORE, itemTitled("French fries")),
-                //arrayOf(SORT_BY_TITLE, itemTitled("yoghurt"), AFTER, itemTitled("œuf (French: egg)")),
-                arrayOf(SORT_BY_DATE_CREATED, itemTitled("aa"), EQUALS, itemTitled("zzz")),
-                arrayOf(SORT_BY_DATE_CREATED, itemCreated(10L), BEFORE, itemCreated(20L)),
-                arrayOf(SORT_BY_DATE_CREATED, itemCreated(400L), AFTER, itemCreated(310L)),
+                arrayOf("title", itemTitled("A"), EQUALS, itemTitled("A")),
+                arrayOf("title", itemTitled("A"), BEFORE, itemTitled("B")),
+                arrayOf("title", itemTitled("D"), AFTER, itemTitled("C")),
+                arrayOf("title", itemTitled("x"), AFTER, itemTitled("W")),
+                arrayOf("title descending", itemTitled("x"), BEFORE, itemTitled("W")),
+                arrayOf("title", itemTitled("Buy apples"), BEFORE, itemTitled("Buy bananas")),
+                arrayOf("title", itemTitled("15"), BEFORE, itemTitled("19")),
+                arrayOf("title", itemTitled("200"), AFTER, itemTitled("95")),
+                arrayOf("title", itemTitled("Song 5"), BEFORE, itemTitled("Song 12")),
+                arrayOf("title", itemTitled("IMG_20"), BEFORE, itemTitled("IMG_52")),
+                arrayOf("title", itemTitled("IMG_115"), AFTER, itemTitled("IMG_85")),
+                //arrayOf("title", itemTitled("Échalote (French: shallot)"), BEFORE, itemTitled("French fries")),
+                //arrayOf("title", itemTitled("yoghurt"), AFTER, itemTitled("œuf (French: egg)")),
+                arrayOf("date", itemTitled("aa"), EQUALS, itemTitled("zzz")),
+                arrayOf("date", itemCreated(10L), BEFORE, itemCreated(20L)),
+                arrayOf("date", itemCreated(400L), AFTER, itemCreated(310L)),
             )
         }
 
