@@ -44,8 +44,15 @@ class ChecklistItemTest(val sorting: Int, val itemOne: ChecklistItem, val expect
                 arrayOf(SORT_BY_TITLE, itemTitled("A"), EQUALS, itemTitled("A")),
                 arrayOf(SORT_BY_TITLE, itemTitled("A"), BEFORE, itemTitled("B")),
                 arrayOf(SORT_BY_TITLE, itemTitled("D"), AFTER, itemTitled("C")),
+                arrayOf(SORT_BY_TITLE, itemTitled("x"), AFTER, itemTitled("W")),
+                arrayOf(SORT_BY_TITLE, itemTitled("Buy apples"), BEFORE, itemTitled("Buy bananas")),
                 arrayOf(SORT_BY_TITLE, itemTitled("15"), BEFORE, itemTitled("19")),
                 arrayOf(SORT_BY_TITLE, itemTitled("200"), AFTER, itemTitled("95")),
+                arrayOf(SORT_BY_TITLE, itemTitled("Song 5"), BEFORE, itemTitled("Song 12")),
+                arrayOf(SORT_BY_TITLE, itemTitled("IMG_20"), BEFORE, itemTitled("IMG_52")),
+                arrayOf(SORT_BY_TITLE, itemTitled("IMG_115"), AFTER, itemTitled("IMG_85")),
+                arrayOf(SORT_BY_TITLE, itemTitled("Échalote (French: shallot)"), BEFORE, itemTitled("French fries")),
+                arrayOf(SORT_BY_TITLE, itemTitled("yoghurt"), AFTER, itemTitled("œuf (French: egg)")),
             )
         }
 
