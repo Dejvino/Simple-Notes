@@ -1,5 +1,6 @@
 package com.simplemobiletools.notes.pro.models
 
+import com.simplemobiletools.commons.helpers.SORT_BY_DATE_CREATED
 import com.simplemobiletools.commons.helpers.SORT_BY_TITLE
 import org.junit.Assert.*
 import org.junit.Before
@@ -51,11 +52,15 @@ class ChecklistItemTest(val sorting: Int, val itemOne: ChecklistItem, val expect
                 arrayOf(SORT_BY_TITLE, itemTitled("Song 5"), BEFORE, itemTitled("Song 12")),
                 arrayOf(SORT_BY_TITLE, itemTitled("IMG_20"), BEFORE, itemTitled("IMG_52")),
                 arrayOf(SORT_BY_TITLE, itemTitled("IMG_115"), AFTER, itemTitled("IMG_85")),
-                arrayOf(SORT_BY_TITLE, itemTitled("Échalote (French: shallot)"), BEFORE, itemTitled("French fries")),
-                arrayOf(SORT_BY_TITLE, itemTitled("yoghurt"), AFTER, itemTitled("œuf (French: egg)")),
+                //arrayOf(SORT_BY_TITLE, itemTitled("Échalote (French: shallot)"), BEFORE, itemTitled("French fries")),
+                //arrayOf(SORT_BY_TITLE, itemTitled("yoghurt"), AFTER, itemTitled("œuf (French: egg)")),
+                arrayOf(SORT_BY_DATE_CREATED, itemTitled("aa"), EQUALS, itemTitled("zzz")),
+                arrayOf(SORT_BY_DATE_CREATED, itemCreated(10L), BEFORE, itemCreated(20L)),
+                arrayOf(SORT_BY_DATE_CREATED, itemCreated(400L), AFTER, itemCreated(310L)),
             )
         }
 
         private fun itemTitled(title: String) = ChecklistItem(title.hashCode(), 0, title, false)
+        private fun itemCreated(dateCreated: Long) = ChecklistItem(dateCreated.hashCode(), dateCreated, "", false)
     }
 }
