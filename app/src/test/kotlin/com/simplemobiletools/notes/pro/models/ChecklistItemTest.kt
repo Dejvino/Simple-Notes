@@ -24,7 +24,12 @@ class ChecklistItemTest(val sorting: Int, val itemOne: ChecklistItem, val expect
 
     @Test
     fun testCompareTo() {
-        assertEquals(expectedCompareTo, itemOne.compareTo(itemTwo))
+        assertEquals("A = $itemOne\nB = $itemTwo\nA.compareTo(B):\n",
+            expectedCompareTo, coerce(itemOne.compareTo(itemTwo)))
+    }
+
+    private fun coerce(compareToResult: Int): Int {
+        return compareToResult.coerceIn(-1, 1)
     }
 
     companion object {
@@ -36,10 +41,14 @@ class ChecklistItemTest(val sorting: Int, val itemOne: ChecklistItem, val expect
         @Parameters()
         fun data(): List<Array<Any>> {
             return listOf(
-                arrayOf(SORT_BY_TITLE,
-                    ChecklistItem(1, 0, "A", false),
-                    BEFORE, ChecklistItem(2, 0, "B", false)),
+                arrayOf(SORT_BY_TITLE, itemTitled("A"), EQUALS, itemTitled("A")),
+                arrayOf(SORT_BY_TITLE, itemTitled("A"), BEFORE, itemTitled("B")),
+                arrayOf(SORT_BY_TITLE, itemTitled("D"), AFTER, itemTitled("C")),
+                arrayOf(SORT_BY_TITLE, itemTitled("15"), BEFORE, itemTitled("19")),
+                arrayOf(SORT_BY_TITLE, itemTitled("200"), AFTER, itemTitled("95")),
             )
         }
+
+        private fun itemTitled(title: String) = ChecklistItem(title.hashCode(), 0, title, false)
     }
 }
