@@ -3,8 +3,8 @@ package com.simplemobiletools.notes.pro.helpers
 import java.text.Collator
 
 // adapted from AlphanumericComparator
-class CollatorBasedComparator {
-    fun compare(string1: String, string2: String): Int {
+class CollatorBasedComparator: Comparator<String> {
+    override fun compare(string1: String, string2: String): Int {
         val collator = getCollator()
 
         var thisMarker = 0
