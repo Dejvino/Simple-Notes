@@ -61,6 +61,8 @@ class ChecklistItemTest(val sorting: String, val itemOne: ChecklistItem, val exp
                 arrayOf("title", itemTitled("IMG_20"), BEFORE, itemTitled("IMG_52")),
                 arrayOf("title", itemTitled("IMG_115"), AFTER, itemTitled("IMG_85")),
                 arrayOf("title", itemTitled("Échalote (French: shallot)"), BEFORE, itemTitled("French fries")),
+                arrayOf("title", itemTitled("Échalote"), EQUALS, itemTitled("Echalote")),
+                arrayOf("title", itemTitled("à\\u0325"), EQUALS, itemTitled("a\\u0325")),
                 arrayOf("title", itemTitled("yoghurt"), AFTER, itemTitled("œuf (French: egg)")),
                 arrayOf("date", itemTitled("aa"), EQUALS, itemTitled("zzz")),
                 arrayOf("date", itemCreated(10L), BEFORE, itemCreated(20L)),
