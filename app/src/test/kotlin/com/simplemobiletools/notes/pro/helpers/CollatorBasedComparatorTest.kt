@@ -13,13 +13,13 @@ import org.junit.runners.Parameterized.Parameters
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 @RunWith(Parameterized::class)
-class CollatorComparatorTest(val itemOne: String, val expectedCompare: Int, val itemTwo: String) {
+class CollatorBasedComparatorTest(val itemOne: String, val expectedCompare: Int, val itemTwo: String) {
 
     @Test
     fun testCompare() {
-        val collatorComparator = CollatorComparator()
+        val collatorBasedComparator = CollatorBasedComparator()
         assertEquals("compare(\"$itemOne\", \"$itemTwo\") = ",
-            expectedCompare, collatorComparator.compare(itemOne, itemTwo))
+            expectedCompare, collatorBasedComparator.compare(itemOne, itemTwo))
     }
 
     companion object {
@@ -35,7 +35,7 @@ class CollatorComparatorTest(val itemOne: String, val expectedCompare: Int, val 
                 arrayOf("A", BEFORE, "B"),
                 arrayOf("D", AFTER, "C"),
                 arrayOf("x", AFTER, "W"),
-                arrayOf("x", BEFORE, "W"),
+                arrayOf("X", AFTER, "w"),
                 arrayOf("Buy apples", BEFORE, "Buy bananas"),
                 arrayOf("15", BEFORE, "19"),
                 arrayOf("200", AFTER, "95"),

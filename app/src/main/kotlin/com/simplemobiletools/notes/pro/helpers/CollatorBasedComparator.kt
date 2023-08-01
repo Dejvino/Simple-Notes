@@ -2,11 +2,11 @@ package com.simplemobiletools.notes.pro.helpers
 
 import java.text.Collator
 
-// based on AlphanumericComparator
-class CollatorComparator {
-    private val collator: Collator = Collator.getInstance()
-
+// adapted from AlphanumericComparator
+class CollatorBasedComparator {
     fun compare(string1: String, string2: String): Int {
+        val collator = getCollator()
+
         var thisMarker = 0
         var thatMarker = 0
         val s1Length = string1.length
@@ -78,5 +78,12 @@ class CollatorComparator {
 
     private fun coerce(compareToResult: Int): Int {
         return compareToResult.coerceIn(-1, 1)
+    }
+
+    private fun getCollator(): Collator {
+        val collator = Collator.getInstance()
+        collator.strength = Collator.PRIMARY
+        collator.decomposition = Collator.CANONICAL_DECOMPOSITION
+        return collator
     }
 }
